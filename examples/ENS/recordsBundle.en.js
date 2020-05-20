@@ -3,13 +3,17 @@
 class Token {
 
     constructor(tokenInstance) {
-        this.props = tokenInstance;
-        this.props.baseNode = ".eth";
-        this.props.fullName = this.props.ensName + this.props.baseNode;
-        let namehash = require("eth-ens-namehash");
-        web3.action.setProps({
-          nodeHash: namehash.hash(this.props.fullName)
-        });
+      this.props = tokenInstance;
+      this.props.baseNode = ".eth";
+      this.props.fullName = this.props.ensName + this.props.baseNode;
+      let namehash = require("eth-ens-namehash");
+      web3.action.setProps({
+        nodeHash: namehash.hash(this.props.fullName)
+      }, function(error) {
+          if (error) {
+            console.log(`error: ${error}`)
+          }
+      });
     }
 
     setup() {
